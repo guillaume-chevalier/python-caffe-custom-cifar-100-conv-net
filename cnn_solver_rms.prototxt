@@ -1,0 +1,24 @@
+train_net: "cnn_train.prototxt"
+test_net: "cnn_test.prototxt"
+
+test_iter: 100
+test_interval: 1000
+
+base_lr: 0.001
+momentum: 0.0
+weight_decay: 0.0005
+
+lr_policy: "inv"
+gamma: 0.0001
+power: 0.75
+
+display: 100
+
+max_iter: 100000
+
+snapshot: 25000
+snapshot_prefix: "cnn_snapshot"
+solver_mode: GPU
+
+type: "RMSProp"
+rms_decay: 0.98
