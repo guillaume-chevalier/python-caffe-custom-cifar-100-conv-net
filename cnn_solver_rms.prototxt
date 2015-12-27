@@ -4,9 +4,9 @@ test_net: "cnn_test.prototxt"
 test_iter: 100
 test_interval: 1000
 
-base_lr: 0.001
+base_lr: 0.0007
 momentum: 0.0
-weight_decay: 0.0005
+weight_decay: 0.005
 
 lr_policy: "inv"
 gamma: 0.0001

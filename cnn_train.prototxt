@@ -14,7 +14,7 @@ layer {
   bottom: "data"
   top: "conv1"
   convolution_param {
-    num_output: 12
+    num_output: 32
     kernel_size: 3
     weight_filler {
       type: "xavier"
@@ -44,8 +44,8 @@ layer {
   bottom: "pool1"
   top: "conv2"
   convolution_param {
-    num_output: 32
-    kernel_size: 3
+    num_output: 42
+    kernel_size: 5
     weight_filler {
       type: "xavier"
     }
@@ -57,7 +57,7 @@ layer {
   bottom: "conv2"
   top: "pool2"
   pooling_param {
-    pool: MAX
+    pool: AVE
     kernel_size: 2
     stride: 2
   }
@@ -82,8 +82,8 @@ layer {
   }
 }
 layer {
-  name: "relu3"
-  type: "ReLU"
+  name: "sig1"
+  type: "Sigmoid"
   bottom: "conv3"
   top: "conv3"
 }
@@ -100,8 +100,8 @@ layer {
   }
 }
 layer {
-  name: "relu4"
-  type: "ReLU"
+  name: "sig2"
+  type: "Sigmoid"
   bottom: "ip1"
   top: "ip1"
 }
