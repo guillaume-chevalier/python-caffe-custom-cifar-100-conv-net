@@ -132,10 +132,6 @@ print("Layers' features:")
 
     Layers' features:
 
-
-
-
-
     [('data', (100, 3, 32, 32)),
      ('label', (100,)),
      ('label_data_1_split_0', (100,)),
@@ -161,10 +157,6 @@ print("Parameters and shape:")
 ```
 
     Parameters and shape:
-
-
-
-
 
     [('conv1', (32, 3, 3, 3)),
      ('conv2', (42, 32, 5, 5)),
@@ -5609,7 +5601,7 @@ Let's test directly in command-line:
 
 
 ### 71% accuracy
-Coffe brewed. The net for sure could be fine tuned some more with better solver parameters. 
+Coffe brewed. The net for sure could be fine tuned some more with better solver parameters.
 
 Let's convert the notebook to github markdown:
 
