@@ -2,9 +2,10 @@ layer {
   name: "data"
   type: "HDF5Data"
   top: "data"
-  top: "label"
+  top: "label_coarse"
+  top: "label_fine"
   hdf5_data_param {
-    source: "cifar_10_caffe_hdf5/train.txt"
+    source: "cifar_100_caffe_hdf5/train.txt"
     batch_size: 100
   }
 }
@@ -14,8 +15,34 @@ layer {
   bottom: "data"
   top: "conv1"
   convolution_param {
-    num_output: 32
+    num_output: 64
     kernel_size: 4
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "cccp1"
+  type: "Convolution"
+  bottom: "conv1"
+  top: "cccp1"
+  convolution_param {
+    num_output: 42
+    kernel_size: 1
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "cccp2"
+  type: "Convolution"
+  bottom: "cccp1"
+  top: "cccp2"
+  convolution_param {
+    num_output: 32
+    kernel_size: 1
     weight_filler {
       type: "xavier"
     }
@@ -24,7 +51,7 @@ layer {
 layer {
   name: "pool1"
   type: "Pooling"
-  bottom: "conv1"
+  bottom: "cccp2"
   top: "pool1"
   pooling_param {
     pool: MAX
@@ -63,7 +90,7 @@ layer {
   bottom: "conv2"
   top: "pool2"
   pooling_param {
-    pool: AVE
+    pool: MAX
     kernel_size: 3
     stride: 2
   }
@@ -99,7 +126,7 @@ layer {
   bottom: "conv3"
   top: "pool3"
   pooling_param {
-    pool: MAX
+    pool: AVE
     kernel_size: 2
     stride: 2
   }
@@ -129,28 +156,54 @@ layer {
   top: "ip1"
 }
 layer {
-  name: "ip2"
+  name: "ip_c"
   type: "InnerProduct"
   bottom: "ip1"
-  top: "ip2"
+  top: "ip_c"
   inner_product_param {
-    num_output: 10
+    num_output: 20
     weight_filler {
       type: "xavier"
     }
   }
 }
 layer {
-  name: "accuracy"
+  name: "accuracy_c"
   type: "Accuracy"
-  bottom: "ip2"
-  bottom: "label"
-  top: "accuracy"
+  bottom: "ip_c"
+  bottom: "label_coarse"
+  top: "accuracy_c"
 }
 layer {
-  name: "loss"
+  name: "loss_c"
   type: "SoftmaxWithLoss"
-  bottom: "ip2"
-  bottom: "label"
-  top: "loss"
+  bottom: "ip_c"
+  bottom: "label_coarse"
+  top: "loss_c"
+}
+layer {
+  name: "ip_f"
+  type: "InnerProduct"
+  bottom: "ip1"
+  top: "ip_f"
+  inner_product_param {
+    num_output: 100
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "accuracy_f"
+  type: "Accuracy"
+  bottom: "ip_f"
+  bottom: "label_fine"
+  top: "accuracy_f"
+}
+layer {
+  name: "loss_f"
+  type: "SoftmaxWithLoss"
+  bottom: "ip_f"
+  bottom: "label_fine"
+  top: "loss_f"
 }

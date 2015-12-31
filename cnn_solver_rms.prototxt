@@ -16,7 +16,7 @@ display: 100
 
 max_iter: 100000
 
-snapshot: 25000
+snapshot: 50000
 snapshot_prefix: "cnn_snapshot"
 solver_mode: GPU
 
