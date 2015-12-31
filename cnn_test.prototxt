@@ -23,10 +23,10 @@ layer {
   }
 }
 layer {
-  name: "cccp1"
+  name: "cccp1a"
   type: "Convolution"
   bottom: "conv1"
-  top: "cccp1"
+  top: "cccp1a"
   convolution_param {
     num_output: 42
     kernel_size: 1
@@ -36,10 +36,16 @@ layer {
   }
 }
 layer {
-  name: "cccp2"
+  name: "relu1a"
+  type: "ReLU"
+  bottom: "cccp1a"
+  top: "cccp1a"
+}
+layer {
+  name: "cccp1b"
   type: "Convolution"
-  bottom: "cccp1"
-  top: "cccp2"
+  bottom: "cccp1a"
+  top: "cccp1b"
   convolution_param {
     num_output: 32
     kernel_size: 1
@@ -51,7 +57,7 @@ layer {
 layer {
   name: "pool1"
   type: "Pooling"
-  bottom: "cccp2"
+  bottom: "cccp1b"
   top: "pool1"
   pooling_param {
     pool: MAX
@@ -66,7 +72,7 @@ layer {
   top: "pool1"
 }
 layer {
-  name: "relu1"
+  name: "relu1b"
   type: "ReLU"
   bottom: "pool1"
   top: "pool1"
@@ -143,7 +149,7 @@ layer {
   bottom: "pool3"
   top: "ip1"
   inner_product_param {
-    num_output: 512
+    num_output: 768
     weight_filler {
       type: "xavier"
     }
