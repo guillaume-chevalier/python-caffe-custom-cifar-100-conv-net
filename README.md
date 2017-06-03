@@ -1,6 +1,8 @@
 
 # Custom cifar-100 conv net with Caffe in Python (Pycaffe)
 
+**EDIT: I updated this project to use Keras and Hyperopt rather than Caffe, and I changed the neural architecture. I achieve better results, see here: https://github.com/guillaume-chevalier/Hyperopt-Keras-CNN-CIFAR-100**
+
 Here, I train a custom convnet on the cifar-100 dataset. I will try to build a new convolutional neural network architecture. It is a bit based on the NIN (Network In Network) architecture detailed in this paper: http://arxiv.org/pdf/1312.4400v3.pdf.
 
 I mainly use some convolution layers, cccp layers, pooling layers, dropout, fully connected layers, relu layers, as well ass sigmoid layers and softmax with loss on top of the neural network.
@@ -2420,6 +2422,9 @@ Let's test directly in command-line:
 
 
 ## The model achieved near 58% accuracy on the 20 coarse labels and 47% accuracy on fine labels.
+
+**EDIT: I updated this project to use Keras and Hyperopt rather than Caffe, and I changed the neural architecture. I achieve better results, see here: https://github.com/guillaume-chevalier/Hyperopt-Keras-CNN-CIFAR-100**
+
 This means that upon showing the neural network a picture it had never seen, it will correctly classify it in one of the 20 coarse categories 58% of the time or it will classify it correctly in the fine categories 47% of the time right, and ignoring the coarse label. This is amazing, but the neural network for sure could be fine tuned with better solver parameters.
 
 It would  be also possible to have two more loss layers on top of the existing loss, to recombine the predictions made and synchronize with the fact that coarse and fine labels influence on each other and are related.
